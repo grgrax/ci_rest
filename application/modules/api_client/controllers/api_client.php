@@ -14,6 +14,21 @@ class api_client extends Admin_Controller {
 		try {
 			$user=$this->native_curl_get('ramesh');
 			if(!$user) throw new Exception("Couldnt reach API", 1);
+			if($this->input->post())
+			{
+				$rules=array(
+					'field'=>'email',
+					'label'=>'Email Address',
+					'rules'=>'trim|required|valid_email|unique[tbl_users.email]|xss_clean'
+					);
+				$this->form_validation->set_rules($rules);
+				if($this->form_validation->run($this)===TRUE)
+				{
+					die("ok post");
+				}
+				else
+					die("erorr");
+			}
 			$this->template_data['user']=$user;
 			$this->template_data['subview']=self::MODULE.'list';
 			$this->load->view('admin/main_layout',$this->template_data);
@@ -46,7 +61,7 @@ class api_client extends Admin_Controller {
 		// method 3- update with native curl
 		// $this->native_curl('ramesh@gmail.come');
 		$user=$this->native_curl_get('ramesh');
-		
+
 		// method 4- update with curl library
 		// $this->ci_curl('ramesh@gmail.comcurl'); 
 

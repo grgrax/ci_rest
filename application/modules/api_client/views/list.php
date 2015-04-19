@@ -7,7 +7,7 @@
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-2 control-label">User Email</label>
 				<div class="col-sm-4">
-					<input name="name" type="text" class="form-control" value="<?php echo set_value('name',$user['email']) ?>"?>
+					<input name="email" type="text" class="form-control" value="<?php echo set_value('name',$user['email']) ?>"?>
 				</div>
 				<div class="col-sm-4">
 					<input type="submit" value="submit" class="btn btn-primary">
