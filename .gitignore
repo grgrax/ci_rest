@@ -1,0 +1,9 @@
+#ignore proxies
+uploads/
+
+application/config/development/database.php
+application/config/production/
+application/database.php
+index.php
+
+
