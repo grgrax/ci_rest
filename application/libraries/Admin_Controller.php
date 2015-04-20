@@ -7,7 +7,7 @@ class Admin_Controller extends MY_Controller {
 	{
 		parent::__construct();
 		$this->template_data='';
-		$this->output->enable_profiler('config');
+		// $this->output->enable_profiler('config');
 		$this->load->library(array('form_validation','session','breadcrumb','form_validation'));
 		if(!$this->session->userdata('username')){
 			// echo "seesion not set";

@@ -2,7 +2,6 @@
 
 class MY_Controller extends MX_Controller {
 
-	private $template_data='';
 
 	public function __construct()
 	{

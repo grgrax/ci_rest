@@ -105,4 +105,15 @@ function is_article_picture_exists($pic){
 	}
 }
 
+//api version
+function is_picture_exists_api($pic){
+	if($pic){
+		return $pic;
+		if(file_exists($pic)){
+			return $pic;
+		}
+		return false;
+	}
+}
+//api version
 ?>

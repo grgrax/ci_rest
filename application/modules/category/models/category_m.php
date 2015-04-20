@@ -18,6 +18,11 @@ class category_m extends CI_Model
 
 	const file_path='categories/';
 
+	static function getConstants() {
+		$oClass = new ReflectionClass(__CLASS__);
+		return $oClass->getConstants();
+	}
+	
 	public static function status($key=null){
 		$status=array(
 			self::PUBLISHED=>'PUBLISHED',
@@ -37,7 +42,7 @@ class category_m extends CI_Model
 	}
 
 	public function __construct(){
-		$this->path=base_url()."uploads/pics/testimonials/";
+		$this->path=get_upload_pic_path()."categories/";
 	}
 
 	function read_all($total=0,$start=0)

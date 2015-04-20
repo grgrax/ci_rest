@@ -7,6 +7,11 @@ class api extends DB_REST_Controller
     function __construct()
     {
         parent::__construct();
+        $this->response(
+            array('status' => 'SUCCESS', 
+                'responseCode' => '0000', 
+                'responseMessage' => 'It Works !!!'
+                ));
     }
 
     // category

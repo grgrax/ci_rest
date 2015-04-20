@@ -159,3 +159,11 @@ ol.sortable {
 	text-transform: capitalize;
 }
 
+
+/*api*/
+.lower{
+	text-transform: lowercase;
+	font-size: 14px;
+	color: rgb(237, 106, 38);
+}
+/*api*/

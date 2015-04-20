@@ -8,12 +8,33 @@ class api_client extends Admin_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->api_url=get_setting('api_url');
-		$this->breadcrumb->append_crumb('API Client',base_url().self::MODULE.'index');
 	}
 
 	function index(){
-		$this->template_data['subview']=self::MODULE.'list';
-		$this->load->view('admin/main_layout',$this->template_data);
+		try {
+			$user=$this->native_curl_get('ramesh');
+			if(!$user) throw new Exception("Couldnt reach API", 1);
+			if($this->input->post())
+			{
+				$rules=array(
+					'field'=>'email',
+					'label'=>'Email Address',
+					'rules'=>'trim|required|valid_email|unique[tbl_users.email]|xss_clean'
+					);
+				$this->form_validation->set_rules($rules);
+				if($this->form_validation->run($this)===TRUE)
+				{
+					die("ok post");
+				}
+				else
+					die("erorr");
+			}
+			$this->template_data['user']=$user;
+			$this->template_data['subview']=self::MODULE.'list';
+			$this->load->view('admin/main_layout',$this->template_data);
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
 	}
 	function test(){
 
