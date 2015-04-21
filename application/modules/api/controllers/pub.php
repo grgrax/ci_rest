@@ -48,18 +48,19 @@ class pub extends DB_REST_Controller
                 'name'=>$this->input->post('name'),
                 'slug'=>$this->input->post('slug'),
                 'content'=>$this->input->post('content'),
-// 'image'=>$_FILES['image']['name'],
+                'image'=>$_FILES['image']['name'],
                 'image_title'=>$this->input->post('image_title'),
                 'url'=>$this->input->post('url'),
                 'order'=>$this->input->post('order'),
                 'published'=>$this->input->post('published'),
-// 'author'=>$current_user['id'],
+                //'author'=>$current_user['id'],
                 'status'=>$this->input->post('status'),
                 );
-// $this->template_data['update_data']=array(
-//  'image_title'=>$this->post('image_title'),
-// );
-// $path=get_relative_upload_file_path();
+            $path=get_relative_upload_file_path();
+            $path.=$model::file_path;
+            if($_FILES['image']['name']){
+                upload_picture($model->path,'image');
+            }
             $model->create_row($data['insert_data']);
             $category=$model->read_row_by_slug($this->post('slug'));
             $this->response(array('data'=>$category), 200);             
