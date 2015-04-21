@@ -135,7 +135,7 @@ class category_m extends CI_Model
 
 	public function get_parents()
 	{
-		$this->db->select('id,name')->from($this->table)->where("status =".self::ACTIVE." and parent_id is NULL");
+		$this->db->select('id,name')->from($this->table)->where("status =".self::PUBLISHED." and parent_id is NULL");
 		$rs=$this->db->get();
 		return $rs->result_array();				 
 	}

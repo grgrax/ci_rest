@@ -1,12 +1,12 @@
 <form method="post" action="" enctype="multipart/form-data">
   <div class="panel panel-default">
-    <div class="panel-heading">Add New</div>
+    <div class="panel-heading">Add New (API) -- <?php echo $api_url_string;?></div>
     <div class="panel-body">
       <div class="form-group">
         <label for="parent_id">Parent category</label>
         <select name="parent_id" id="input" class="form-control capitalize">
           <option value="">Select</option>
-          <?php foreach ($rows as $row) {?>
+          <?php foreach ($parents as $row) {?>
           <option value="<?php echo $row['id'] ?>"><?php echo $row['name']?></option>
           <?php } ?>
         </select>

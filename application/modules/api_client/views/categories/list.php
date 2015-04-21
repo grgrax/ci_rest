@@ -1,13 +1,11 @@
 <?php //show_pre($category_m); ?>
 <div class="panel panel-default">
-	<div class="panel-heading">Categories from (API) -- 
-	<a class="lower" href="<?php echo get_setting('own_api_url');?>">
-	<?php echo get_setting('own_api_url');?>
-	</a></div>
+	<div class="panel-heading">Categories from (API) -- <?php echo $api_url_string;?></div>
 	<div class="panel-body">
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
+					<th class="center">s.no</th>
 					<th width="20%">name</th>
 					<th>parent</th>
 					<th>content</th>
@@ -19,7 +17,9 @@
 			<tbody>
 				<?php 
 				if ($rows && count($rows) > 0) {
+					$c=0;
 					foreach ($rows as $row) {
+						$c++;
 						$alertClass="";
 						$actions=array();
 						switch($row['published']){
@@ -39,6 +39,7 @@
 						}
 						?>
 						<tr class="<?php echo $alertClass?>">
+							<td class="center"><?php echo $c;?></td>
 							<td>
 								<a href="<?= $link ?>edit/<?= $row['slug'] ?>"/><?= word_limiter(convert_accented_characters($row['name']), 5) ?></a>
 							</td>
