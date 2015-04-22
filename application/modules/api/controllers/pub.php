@@ -43,12 +43,13 @@ class pub extends DB_REST_Controller
         $model=$this->load->model('category/category_m');
         if(!$this->post('slug')) $this->response(NULL, 400);
         if($this->post('add')){
+            $image=$this->input->post('image_name')?$this->input->post('image_name'):null;
             $data['insert_data']=array(
                 'parent_id'=>$this->input->post('parent_id')?$this->input->post('parent_id'):NULL,
                 'name'=>$this->input->post('name'),
                 'slug'=>$this->input->post('slug'),
                 'content'=>$this->input->post('content'),
-                'image'=>$_FILES['image']['name'],
+                'image_name'=>$image,
                 'image_title'=>$this->input->post('image_title'),
                 'url'=>$this->input->post('url'),
                 'order'=>$this->input->post('order'),
@@ -58,9 +59,16 @@ class pub extends DB_REST_Controller
                 );
             $path=get_relative_upload_file_path();
             $path.=$model::file_path;
-            if($_FILES['image']['name']){
-                upload_picture($model->path,'image');
+            if($this->input->post('image_name')){
+                $uploaded=upload_picture($model->path,$image);
+                // show_pre($uploaded);
+                $this->response($uploaded,200);
+                // if($uploaded['error']){
+                //     $this->response(array('error'=>'Category could not be added. Upload error'), 200)             
+                // }
             }
+            else
+                $this->response(array('data'=>'upload'), 200);                             
             $model->create_row($data['insert_data']);
             $category=$model->read_row_by_slug($this->post('slug'));
             $this->response(array('data'=>$category), 200);             

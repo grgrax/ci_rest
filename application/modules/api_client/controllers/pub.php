@@ -9,6 +9,7 @@ class pub extends Admin_Controller {
 	function __construct(){
 		try {
 			parent::__construct();
+			$this->load->helper('api_client');
 			$this->api_url=get_setting('own_api_url');
 			$this->breadcrumb->append_crumb('List IIT categories',base_url().self::MODULE.'index');
 			$this->response = json_decode(file_get_contents("$this->api_url/pub/categories"),true);
@@ -23,6 +24,7 @@ class pub extends Admin_Controller {
 
 	function index(){
 		$this->template_data['rows']=$this->response['data'];
+		$this->template_data['parents']=$this->response['parents'];
 		$this->template_data['category_m']=$this->response['model'];
 		$this->template_data['subview']=self::MODULE.'categories/list';
 		$this->load->view('admin/main_layout',$this->template_data);
@@ -93,14 +95,25 @@ class pub extends Admin_Controller {
 			$curl_handle = curl_init();
 			curl_setopt($curl_handle, CURLOPT_URL, "$this->api_url/pub/category");
 			curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+			// show_pre($_FILES);
+			// show_pre($data);
+			$data['image_name']=$_FILES['image']['name'];
+			$data['image_type']=$_FILES['image']['type'];
+			$data['image_tmp_name']=$_FILES['image']['tmp_name'];
+			$data['image_error']=$_FILES['image']['error'];
+			$data['image_size']=$_FILES['image']['size'];
+			// show_pre($data);
 			curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $data);
 			$buffer = curl_exec($curl_handle);
 			curl_close($curl_handle);
 			$result = json_decode($buffer,true);
+			show_pre($result);
 			if(isset($result['data']['name']) && $result['data']['name'] == $data['name']){
+				die('y');
 				return $result;
 			}
 			else{
+				die('n');
 				return null;
 			}
 		}

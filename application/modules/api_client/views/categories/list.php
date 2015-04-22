@@ -1,4 +1,3 @@
-<?php //show_pre($category_m); ?>
 <div class="panel panel-default">
 	<div class="panel-heading">Categories from (API) -- <?php echo $api_url_string;?></div>
 	<div class="panel-body">
@@ -43,7 +42,9 @@
 							<td>
 								<a href="<?= $link ?>edit/<?= $row['slug'] ?>"/><?= word_limiter(convert_accented_characters($row['name']), 5) ?></a>
 							</td>
-							<td><?php //echo $row['parent_id']?$category_m->get_parent_name($row['parent_id']):'---';?></td>
+							<td>
+							<?php echo parent_name($parents,$row['parent_id']);?>
+							</td>
 							<td><?= word_limiter(convert_accented_characters($row['content']), 5) ?></td>
 							<td>
 								<?php if($row['image']!="") { ?>

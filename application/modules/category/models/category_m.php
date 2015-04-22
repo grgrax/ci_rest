@@ -62,8 +62,8 @@ class category_m extends CI_Model
 		->from($this->table)
 		->where("status != ",self::DELETED)
 		->where("published = ",self::PUBLISHED)
-		->order_by('parent_id','asc')
-		->order_by('order','asc');
+		// ->order_by('parent_id','desc')
+		->order_by('id','desc');
 		$rs=$this->db->get();
 		return $rs->result_array();				 
 	}
@@ -75,8 +75,8 @@ class category_m extends CI_Model
 		->where("status != ",self::DELETED)
 		->where("published = ",self::PUBLISHED)
 		->where("parent_id = ",$cat_id)
-		->order_by('id','asc')
-		->order_by('order','asc');
+		->order_by('id','desc');
+		// ->order_by('order','desc');
 		$rs=$this->db->get();
 		return $rs->result_array();				 
 	}
@@ -88,7 +88,7 @@ class category_m extends CI_Model
 
         //$this->db->select('id,parent_id,order');
 		$this->db->from($this->table);
-		$this->db->order_by("order", "asc");
+		$this->db->order_by("order", "desc");
 		$query = $this->db->get();
 		$categorys=$query->result_array();
 		$final_categorys=array();

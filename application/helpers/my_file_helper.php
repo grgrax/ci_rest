@@ -27,22 +27,29 @@ function get_relative_upload_video_path(){
 }
 
 function upload_picture($path=null,$file_input_name=null){
-	$ci=& get_instance();
-	if($path && $file_input_name){
-		$config['upload_path'] = $path;
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '1000';
-		$config['max_width']  = '1024';
-		$config['max_height']  = '768';
-		$ci->load->library('upload', $config);
-		if (!$ci->upload->do_upload($file_input_name))
-		{
-			$data['error']=$ci->upload->display_errors();
-			throw new Exception("Could not upload picture <hr/>".$data['error']);
+	try {
+		$ci=& get_instance();
+		if($path && $file_input_name){
+			$config['upload_path'] = $path;
+			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size']	= '1000';
+			$config['max_width']  = '1024';
+			$config['max_height']  = '768';
+			// return $ci;
+			$ci->load->library('upload', $config);
+			if (!$ci->upload->do_upload($file_input_name))
+			{
+				return $data['error']=$ci->upload->display_errors();
+				//throw new Exception("Could not upload picture <hr/>".$data['error']);
+			}
+			else{
+				return $data['success'] = array('upload_data' => $ci->upload->data());
+			}			
 		}
-		else{
-			$data['success'] = array('upload_data' => $ci->upload->data());
-		}			
+		else
+			return $data['error'] = $path.'invalid path/file to upload ';
+	} catch (Exception $e) {
+		return $e->getMessage();
 	}
 }
 
