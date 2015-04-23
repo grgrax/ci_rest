@@ -109,11 +109,11 @@ class pub extends Admin_Controller {
 			$result = json_decode($buffer,true);
 			show_pre($result);
 			if(isset($result['data']['name']) && $result['data']['name'] == $data['name']){
-				die('y');
+				// die('y');
 				return $result;
 			}
 			else{
-				die('n');
+				// die('n');
 				return null;
 			}
 		}
